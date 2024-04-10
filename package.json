@@ -1,0 +1,23 @@
+{
+  "name": "goatsapp",
+  "module": "esbuild.ts",
+  "type": "module",
+  "scripts": {
+    "tailwind": "tailwindcss -i ./assets/public/css/style.css -o ./assets/public/css/style.min.css --minify"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2",
+    "@types/bun": "latest",
+    "autoprefixer": "^10.4.19",
+    "esbuild": "^0.20.2",
+    "esbuild-plugin-copy": "^2.1.1",
+    "esbuild-sass-plugin": "^3.2.0",
+    "esbuild-style-plugin": "^1.6.3",
+    "htmx.org": "^1.9.11",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

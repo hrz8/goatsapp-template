@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "tailwindCSS.includeLanguages": {
+    "templ": "html"
+  },
+  "css.customData": [".vscode/tailwind.json"]
+}

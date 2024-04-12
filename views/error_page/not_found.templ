@@ -1,0 +1,14 @@
+package error_page
+
+import (
+	"github.com/hrz8/goatsapp/views/layout"
+)
+
+templ NotFoundPage() {
+	@layout.Layout() {
+		<button class="app-btn">klik lagi</button>
+		<div class="rounded-md text-white shadow-xs">
+			The page you're looking for doesn't exist.
+		</div>
+	}
+}

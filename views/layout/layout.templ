@@ -1,0 +1,45 @@
+package layout
+
+templ layoutBase() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>goatsapp - WhatsApp Non-Business API</title>
+			<meta name="description" content="goatsapp is an unofficial platform of whatsapp non business api"/>
+			<link rel="stylesheet" href="/assets/css/style.min.css"/>
+			<script type="text/javascript" src="/assets/js/vendor/htmx.min.js"></script>
+		</head>
+		<body hx-indicator=".progress-indicator" hx-target="#main-area" hx-select="#main-area" hx-swap="outerHTML">
+			<div class="progress-indicator" style="height: 3px;">
+				<div class="indeterminate" style="background-color: #b67e20;"></div>
+			</div>
+			{ children... }
+			<script src="/assets/js/main.js"></script>
+		</body>
+	</html>
+}
+
+templ Layout() {
+	@layoutBase() {
+		<div class="dark hidden h-screen w-full flex-col overflow-x-hidden md:flex">
+			<div class="flex flex-grow flex-col overflow-y-hidden md:flex-row">
+				<aside class="w-full border-r border-mineshaft-600 bg-gradient-to-tr from-mineshaft-700 via-mineshaft-800 to-mineshaft-900 md:w-60">
+					<nav class="items-between flex h-full flex-col justify-between overflow-y-auto dark:[color-scheme:dark]"></nav>
+				</aside>
+				<main class="flex-1 overflow-y-auto overflow-x-hidden bg-bunker-800 dark:bg-zinc-900" id="main-area">
+					{ children... }
+				</main>
+			</div>
+		</div>
+		<div class="dark">
+			<div class="no-mobile">
+				<i class="mb-8 text-7xl text-gray-300 fa-solid fa-mobile"></i>
+				<p class="max-w-sm px-6 text-center text-lg text-gray-200">
+					To use goatsapp, please log in through a device with larger dimensions.
+				</p>
+			</div>
+		</div>
+	}
+}

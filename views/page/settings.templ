@@ -1,0 +1,14 @@
+package page
+
+import "github.com/hrz8/goatsapp/views/layout"
+import "github.com/hrz8/goatsapp/views/component"
+
+templ SettingsPage() {
+	@layout.Layout() {
+		@component.Nav()
+		<div class="text-white">
+			<h1 style="color: red;">Settings</h1>
+			<div class="text-3xl font-bold italic underline">This is settings page!</div>
+		</div>
+	}
+}

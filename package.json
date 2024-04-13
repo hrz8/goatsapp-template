@@ -2,6 +2,10 @@
   "name": "goatsapp",
   "module": "esbuild.ts",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrz8/goatstrap.git"
+  },
   "scripts": {
     "tailwind": "tailwindcss -i ./assets/public/css/style.css -o ./assets/public/css/style.min.css --minify"
   },

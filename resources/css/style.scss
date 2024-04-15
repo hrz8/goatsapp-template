@@ -4,7 +4,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+@import '../../node_modules/flowbite/dist/flowbite.min.css';
 
 .app-btn {      
   @apply text-white;
@@ -34,12 +34,16 @@
 .progress-indicator {
   position: fixed;
   z-index: 1000;
-  height: 4px;
+  height: 3px;
   width: 100%;
   border-radius: 2px;
   background-clip: padding-box;
   overflow: hidden;
   display: none;
+
+  .indeterminate {
+    background-color: #b67e20;
+  }
 
   .indeterminate:before {
     content: "";
@@ -92,6 +96,7 @@
     right: -90%;
   }
 }
+
 @keyframes indeterminate {
   0% {
     left: -35%;
@@ -106,6 +111,7 @@
     right: -90%;
   }
 }
+
 @-webkit-keyframes indeterminate-short {
   0% {
     left: -200%;
@@ -120,6 +126,7 @@
     right: -8%;
   }
 }
+
 @keyframes indeterminate-short {
   0% {
     left: -200%;

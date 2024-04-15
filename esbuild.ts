@@ -6,9 +6,18 @@ import {sassPlugin} from 'esbuild-sass-plugin';
 import postCssPlugin from 'esbuild-style-plugin';
 
 const config: esbuild.BuildOptions = {
-  entryPoints: ['resources/js/main.ts', 'resources/css/style.scss'],
+  entryPoints: [
+    {
+      in: 'resources/js/main.ts',
+      out: 'js/app.bundle'
+    },
+    {
+      in: 'resources/css/style.scss',
+      out: 'css/_app.bundle'
+    }
+  ],
   bundle: true,
-  minify: false,
+  minify: true,
   logLevel: 'debug',
   metafile: true,
   sourcemap: true,

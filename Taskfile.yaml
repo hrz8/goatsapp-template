@@ -1,15 +1,16 @@
 version: "3"
-
 tasks:
   install:
     cmds:
       - go mod tidy
       - bun install
-  build:
+  build:style:
+    cmds:
+      - bun run build:esbuild
+      - bun run build:tailwind
+  build:templ:
     cmds:
       - templ generate
-      - bun ./esbuild.ts
-      - bun run tailwind
-  watch:
+  dev:
     cmds:
       - air

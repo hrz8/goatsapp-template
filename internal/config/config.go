@@ -7,20 +7,28 @@ type AppConfig interface {
 }
 
 type cfg struct {
-	appPort string
+	appPort  string
+	basePath string
 }
 
 func New() *cfg {
-	port := os.Getenv("APP_PORT")
-	if port == "" {
-		port = "5101"
+	appPort := os.Getenv("APP_PORT")
+	if appPort == "" {
+		appPort = "5101"
 	}
 
+	basePath := os.Getenv("BASE_PATH")
+
 	return &cfg{
-		appPort: port,
+		appPort:  appPort,
+		basePath: basePath,
 	}
 }
 
 func (c *cfg) GetAppPort() string {
 	return c.appPort
+}
+
+func (c *cfg) GetBasePath() string {
+	return c.basePath
 }

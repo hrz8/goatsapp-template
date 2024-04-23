@@ -5,7 +5,7 @@ import (
 
 	"github.com/hrz8/goatsapp/internal/config"
 	"github.com/hrz8/goatsapp/internal/domain/settings/page"
-	"github.com/hrz8/goatsapp/pkg/view"
+	"github.com/hrz8/goatsapp/pkg/core"
 	"github.com/labstack/echo/v4"
 )
 
@@ -20,6 +20,5 @@ func New(cfg config.AppConfig) *svc {
 func (u *svc) SettingsIndex(c echo.Context) error {
 	time.Sleep(1 * time.Second)
 
-	c.Response().Header().Set("HX-Push-Url", "/settings")
-	return view.Render(c, page.SettingsPage())
+	return core.RenderView(c, "/settings", page.SettingsPage())
 }

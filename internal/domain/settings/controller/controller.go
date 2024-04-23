@@ -15,6 +15,7 @@ func New(cfg config.AppConfig, svc port.SettingService) *ctl {
 	return &ctl{cfg, svc}
 }
 
-func (c *ctl) Init(e *echo.Echo) {
-	e.GET("/settings", c.svc.SettingsIndex)
+func (c *ctl) Init(g *echo.Group) {
+	d := g.Group("/settings")
+	d.GET("", c.svc.SettingsIndex)
 }

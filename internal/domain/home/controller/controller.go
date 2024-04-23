@@ -15,6 +15,6 @@ func New(cfg config.AppConfig, svc port.HomeService) *ctl {
 	return &ctl{cfg, svc}
 }
 
-func (c *ctl) Init(e *echo.Echo) {
-	e.GET("/", c.svc.HomeHandler)
+func (c *ctl) Init(g *echo.Group) {
+	g.GET("", c.svc.HomeIndex)
 }

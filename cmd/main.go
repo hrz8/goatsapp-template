@@ -11,13 +11,16 @@ import (
 	SettingsSvc "github.com/hrz8/goatsapp/internal/domain/settings/service"
 	"github.com/hrz8/goatsapp/views/error_page"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	cfg := config.New()
 	appPort := cfg.GetAppPort()
+	basePath := cfg.GetBasePath()
 
 	e := echo.New()
+	e.Pre(middleware.RemoveTrailingSlash())
 	e.RouteNotFound("*", func(c echo.Context) error {
 		return error_page.NotFoundPage().Render(
 			c.Request().Context(),
@@ -25,9 +28,17 @@ func main() {
 		)
 	})
 
-	HomeCtl.New(cfg, HomeSvc.New(cfg)).Init(e)
-	SettingsCtl.New(cfg, SettingsSvc.New(cfg)).Init(e)
+	base := e.Group(basePath)
 
-	e.GET("/assets/*", assets.StaticHandler("public"))
-	e.Logger.Fatal(e.Start(fmt.Sprintf(":%v", appPort)))
+	HomeCtl.New(cfg, HomeSvc.New(cfg)).Init(base)
+	SettingsCtl.New(cfg, SettingsSvc.New(cfg)).Init(base)
+
+	base.GET("/assets/*", assets.StaticHandler("public"))
+
+	fmt.Printf("Server listening on port %s...\n", appPort)
+	err := e.Start(":" + appPort)
+	if err != nil {
+		fmt.Printf("Failed to start server: %s\n", err)
+	}
+
 }

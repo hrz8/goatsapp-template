@@ -1,5 +1,7 @@
 package component
 
+import "github.com/hrz8/goatsapp/pkg/core"
+
 templ Sidebar() {
 	<aside
 		id="sidebar"
@@ -46,8 +48,8 @@ templ Sidebar() {
 						</li>
 						<li>
 							<a
-								href="/"
-								hx-get="/"
+								href={ templ.SafeURL(core.BaseURL("/")) }
+								hx-get={ core.BaseURL("/") }
 								class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700"
 							>
 								<svg
@@ -102,13 +104,13 @@ templ Sidebar() {
 							<ul id="dropdown-layouts" class="hidden py-2 space-y-2">
 								<li>
 									<a
-										href="/apps/db1c883c-d14d-4fcb-b5e1-2254c3b8d95e"
+										href={ templ.SafeURL(core.BaseURL("/apps/db1c883c-d14d-4fcb-b5e1-2254c3b8d95e")) }
 										class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
 									>Rexus Ultra</a>
 								</li>
 								<li>
 									<a
-										href="/apps/3b85792d-1c0b-4f14-93ef-58e0dae882c2"
+										href={ templ.SafeURL(core.BaseURL("/apps/3b85792d-1c0b-4f14-93ef-58e0dae882c2")) }
 										class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
 									>Tribal Cluster</a>
 								</li>
@@ -116,8 +118,8 @@ templ Sidebar() {
 						</li>
 						<li>
 							<a
-								href="/settings"
-								hx-get="/settings"
+								href={ templ.SafeURL(core.BaseURL("/settings")) }
+								hx-get={ core.BaseURL("/settings") }
 								class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700 "
 							>
 								<svg
@@ -144,7 +146,7 @@ templ Sidebar() {
 				sidebar-bottom-menu
 			>
 				<a
-					href="/apps/new"
+					href={ templ.SafeURL(core.BaseURL("/apps/new")) }
 					data-tooltip-target="tooltip-newapps"
 					class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
 				>
@@ -167,8 +169,8 @@ templ Sidebar() {
 					<div class="tooltip-arrow" data-popper-arrow></div>
 				</div>
 				<a
-					href="/settings"
-					hx-get="/settings"
+					href={ templ.SafeURL(core.BaseURL("/settings")) }
+					hx-get={ core.BaseURL("/settings") }
 					data-tooltip-target="tooltip-settings"
 					class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
 				>

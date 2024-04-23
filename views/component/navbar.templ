@@ -1,5 +1,7 @@
 package component
 
+import "github.com/hrz8/goatsapp/pkg/core"
+
 templ Navbar() {
 	<nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
 		<div class="px-3 py-3 lg:px-5 lg:pl-3">
@@ -38,7 +40,11 @@ templ Navbar() {
 							></path>
 						</svg>
 					</button>
-					<a href="/" class="flex ml-2 md:mr-24">
+					<a
+						href={ templ.SafeURL(core.BaseURL("/")) }
+						hx-get={ core.BaseURL("/") }
+						class="flex ml-2 md:mr-24"
+					>
 						<svg class="w-[48px] h-[48px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h6l3 3v-3h2V9h-2M4 4h11v8H9l-3 3v-3H4V4Z"></path>
 						</svg>

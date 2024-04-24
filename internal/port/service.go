@@ -9,3 +9,7 @@ type HomeService interface {
 type SettingService interface {
 	SettingsIndex(c echo.Context) error
 }
+
+type AppUsecase interface {
+	CreateNewApp(c echo.Context) error
+}

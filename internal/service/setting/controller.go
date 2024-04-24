@@ -1,4 +1,4 @@
-package controller
+package settingsvc
 
 import (
 	"github.com/hrz8/goatsapp/internal/config"
@@ -11,11 +11,13 @@ type ctl struct {
 	svc port.SettingService
 }
 
-func New(cfg config.AppConfig, svc port.SettingService) *ctl {
+func NewController(cfg config.AppConfig, svc port.SettingService) *ctl {
 	return &ctl{cfg, svc}
 }
 
 func (c *ctl) Init(g *echo.Group) {
 	d := g.Group("/settings")
+
+	// routes
 	d.GET("", c.svc.SettingsIndex)
 }

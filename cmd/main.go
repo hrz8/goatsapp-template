@@ -1,20 +1,25 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/hrz8/goatsapp/assets"
 	"github.com/hrz8/goatsapp/internal/config"
-	HomeCtl "github.com/hrz8/goatsapp/internal/domain/home/controller"
-	HomeSvc "github.com/hrz8/goatsapp/internal/domain/home/service"
-	SettingsCtl "github.com/hrz8/goatsapp/internal/domain/settings/controller"
-	SettingsSvc "github.com/hrz8/goatsapp/internal/domain/settings/service"
+	AppSvc "github.com/hrz8/goatsapp/internal/service/app"
+	HomeSvc "github.com/hrz8/goatsapp/internal/service/home"
+	SettingSvc "github.com/hrz8/goatsapp/internal/service/setting"
 	"github.com/hrz8/goatsapp/views/error_page"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("error loading .env file")
+	}
+
 	cfg := config.New()
 	appPort := cfg.GetAppPort()
 	basePath := cfg.GetBasePath()
@@ -29,16 +34,15 @@ func main() {
 	})
 
 	base := e.Group(basePath)
-
-	HomeCtl.New(cfg, HomeSvc.New(cfg)).Init(base)
-	SettingsCtl.New(cfg, SettingsSvc.New(cfg)).Init(base)
-
 	base.GET("/assets/*", assets.StaticHandler("public"))
 
-	fmt.Printf("Server listening on port %s...\n", appPort)
-	err := e.Start(":" + appPort)
-	if err != nil {
-		fmt.Printf("Failed to start server: %s\n", err)
-	}
+	bootstrap(cfg, base)
 
+	e.Logger.Fatal(e.Start(":" + appPort))
+}
+
+func bootstrap(cfg config.AppConfig, e *echo.Group) {
+	HomeSvc.NewController(cfg, HomeSvc.NewUsecase(cfg)).Init(e)
+	SettingSvc.NewController(cfg, SettingSvc.NewUsecase(cfg)).Init(e)
+	AppSvc.NewController(cfg, AppSvc.NewUsecase(cfg)).Init(e)
 }

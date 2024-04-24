@@ -1,23 +1,23 @@
-package service
+package settingsvc
 
 import (
 	"time"
 
 	"github.com/hrz8/goatsapp/internal/config"
-	"github.com/hrz8/goatsapp/internal/domain/settings/page"
+	"github.com/hrz8/goatsapp/internal/service/setting/page"
 	"github.com/hrz8/goatsapp/pkg/core"
 	"github.com/labstack/echo/v4"
 )
 
-type svc struct {
+type usecase struct {
 	cfg config.AppConfig
 }
 
-func New(cfg config.AppConfig) *svc {
-	return &svc{cfg}
+func NewUsecase(cfg config.AppConfig) *usecase {
+	return &usecase{cfg}
 }
 
-func (u *svc) SettingsIndex(c echo.Context) error {
+func (u *usecase) SettingsIndex(c echo.Context) error {
 	time.Sleep(1 * time.Second)
 
 	return core.RenderView(c, "/settings", page.SettingsPage())

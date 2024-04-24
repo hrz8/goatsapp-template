@@ -1,4 +1,4 @@
-package controller
+package homesvc
 
 import (
 	"github.com/hrz8/goatsapp/internal/config"
@@ -11,7 +11,7 @@ type ctl struct {
 	svc port.HomeService
 }
 
-func New(cfg config.AppConfig, svc port.HomeService) *ctl {
+func NewController(cfg config.AppConfig, svc port.HomeService) *ctl {
 	return &ctl{cfg, svc}
 }
 

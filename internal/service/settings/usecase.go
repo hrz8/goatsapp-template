@@ -1,4 +1,4 @@
-package homesvc
+package settingsvc
 
 import (
 	"time"
@@ -14,7 +14,7 @@ func NewUsecase(cfg port.AppConfigor) *usecase {
 	return &usecase{cfg}
 }
 
-func (u *usecase) HandleHomePage() {
+func (u *usecase) HandleSettingsPage() {
 	time.Sleep(1 * time.Second)
-	// some logic...
+	// some logic ...
 }

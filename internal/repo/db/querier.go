@@ -2,14 +2,14 @@
 // versions:
 //   sqlc v1.25.0
 
-package db
+package dbrepo
 
 import (
 	"context"
 )
 
 type Querier interface {
-	GetApps(ctx context.Context) ([]*Apps, error)
+	GetProjects(ctx context.Context) ([]*Projects, error)
 }
 
 var _ Querier = (*Queries)(nil)

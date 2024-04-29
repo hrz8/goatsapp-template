@@ -1,10 +1,11 @@
 package core
 
 import (
+	"context"
+	"net/http"
 	"os"
 
 	"github.com/a-h/templ"
-	"github.com/labstack/echo/v4"
 )
 
 func BaseURL(path string) string {
@@ -16,7 +17,6 @@ func BaseURL(path string) string {
 	return path
 }
 
-func RenderView(c echo.Context, path string, component templ.Component) error {
-	c.Response().Header().Set("HX-Push-Url", BaseURL(path))
-	return component.Render(c.Request().Context(), c.Response().Writer)
+func RenderView(ctx context.Context, w http.ResponseWriter, component templ.Component) error {
+	return component.Render(ctx, w)
 }

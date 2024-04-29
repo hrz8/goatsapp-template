@@ -2,7 +2,7 @@
 // versions:
 //   sqlc v1.25.0
 
-package db
+package dbrepo
 
 import (
 	"github.com/google/uuid"
@@ -10,11 +10,12 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type Apps struct {
-	ID          uuid.UUID          `db:"id" json:"id"`
-	Name        string             `db:"name" json:"name"`
-	Description *string            `db:"description" json:"description"`
-	Settings    dto.AppSettings    `db:"settings" json:"settings"`
-	CreatedAt   pgtype.Timestamptz `db:"created_at" json:"created_at"`
-	UpdatedAt   pgtype.Timestamptz `db:"updated_at" json:"updated_at"`
+type Projects struct {
+	ID          uuid.UUID           `db:"id" json:"id"`
+	Name        string              `db:"name" json:"name"`
+	Alias       string              `db:"alias" json:"alias"`
+	Description *string             `db:"description" json:"description"`
+	Settings    dto.ProjectSettings `db:"settings" json:"settings"`
+	CreatedAt   pgtype.Timestamptz  `db:"created_at" json:"created_at"`
+	UpdatedAt   pgtype.Timestamptz  `db:"updated_at" json:"updated_at"`
 }

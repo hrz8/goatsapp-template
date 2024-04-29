@@ -86,7 +86,7 @@ templ Sidebar() {
 								<span
 									class="flex-1 ml-3 text-left whitespace-nowrap"
 									sidebar-toggle-item
-								>Apps</span>
+								>Projects</span>
 								<svg
 									sidebar-toggle-item
 									class="w-6 h-6"
@@ -104,13 +104,13 @@ templ Sidebar() {
 							<ul id="dropdown-layouts" class="hidden py-2 space-y-2">
 								<li>
 									<a
-										href={ templ.SafeURL(core.BaseURL("/apps/db1c883c-d14d-4fcb-b5e1-2254c3b8d95e")) }
+										href={ templ.SafeURL(core.BaseURL("/projects/db1c883c-d14d-4fcb-b5e1-2254c3b8d95e")) }
 										class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
 									>Rexus Ultra</a>
 								</li>
 								<li>
 									<a
-										href={ templ.SafeURL(core.BaseURL("/apps/3b85792d-1c0b-4f14-93ef-58e0dae882c2")) }
+										href={ templ.SafeURL(core.BaseURL("/projects/3b85792d-1c0b-4f14-93ef-58e0dae882c2")) }
 										class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
 									>Tribal Cluster</a>
 								</li>
@@ -146,9 +146,9 @@ templ Sidebar() {
 				sidebar-bottom-menu
 			>
 				<a
-					href={ templ.SafeURL(core.BaseURL("/apps/new")) }
-					hx-get={ core.BaseURL("/apps/new") }
-					data-tooltip-target="tooltip-newapps"
+					href={ templ.SafeURL(core.BaseURL("/projects/new")) }
+					hx-get={ core.BaseURL("/projects/new") }
+					data-tooltip-target="tooltip-newproject"
 					class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
 				>
 					<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -162,11 +162,11 @@ templ Sidebar() {
 					</svg>
 				</a>
 				<div
-					id="tooltip-newapps"
+					id="tooltip-newproject"
 					role="tooltip"
 					class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
 				>
-					New Apps
+					New Project
 					<div class="tooltip-arrow" data-popper-arrow></div>
 				</div>
 				<a

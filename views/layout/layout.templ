@@ -19,7 +19,7 @@ templ layoutBase() {
 			<script type="text/javascript" src={ core.BaseURL("/assets/js/vendor/htmx.min.js") }></script>
 		</head>
 		<body hx-indicator=".progress-indicator" hx-target="#main-content" hx-select="#main-content" hx-swap="outerHTML" class="bg-gray-50 dark:bg-gray-800">
-			<div class="progress-indicator"><div class="indeterminate"></div></div>
+			<div class="progress-indicator"><div class="indeterminate dark:indeterminate-dark"></div></div>
 			{ children... }
 			// javascript bundles
 			<script src={ core.BaseURL("/assets/js/app.bundle.js") }></script>
@@ -34,6 +34,10 @@ templ Layout() {
 			@component.Sidebar()
 			<div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
 			<div class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+				@component.Toast(component.ToastProps{
+					Message: "",
+					Hidden:  true,
+				})
 				<main id="main-content" class="min-h-[70vh]">
 					{ children... }
 				</main>

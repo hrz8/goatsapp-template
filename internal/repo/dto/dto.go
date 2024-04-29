@@ -1,4 +1,4 @@
 package dto
 
-type AppSettings struct {
+type ProjectSettings struct {
 }

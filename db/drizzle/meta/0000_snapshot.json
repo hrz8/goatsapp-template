@@ -1,59 +1,9 @@
 {
-  "id": "17ad84c2-c78b-4c77-95dd-4e5a8aa77055",
+  "id": "8053a161-a290-42d6-8fc3-598115efefbe",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
   "tables": {
-    "apps": {
-      "name": "apps",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "settings": {
-          "name": "settings",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'{}'::jsonb"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
     "devices": {
       "name": "devices",
       "schema": "",
@@ -65,8 +15,8 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "app_id": {
-          "name": "app_id",
+        "project_id": {
+          "name": "project_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -125,12 +75,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "devices_app_id_apps_id_fk": {
-          "name": "devices_app_id_apps_id_fk",
+        "devices_project_id_projects_id_fk": {
+          "name": "devices_project_id_projects_id_fk",
           "tableFrom": "devices",
-          "tableTo": "apps",
+          "tableTo": "projects",
           "columnsFrom": [
-            "app_id"
+            "project_id"
           ],
           "columnsTo": [
             "id"
@@ -141,6 +91,70 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
+    },
+    "projects": {
+      "name": "projects",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alias": {
+          "name": "alias",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "settings": {
+          "name": "settings",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{}'::jsonb"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "projects_alias_unique": {
+          "name": "projects_alias_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "alias"
+          ]
+        }
+      }
     }
   },
   "enums": {},

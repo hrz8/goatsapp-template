@@ -6,19 +6,6 @@
 
 @import '../../node_modules/flowbite/dist/flowbite.min.css';
 
-.app-btn {      
-  @apply text-white;
-  @apply bg-blue-400;
-  @apply rounded-full;
-  @apply py-1;
-  @apply px-4;
-  @apply shadow;
-
-  &:hover {
-    @apply bg-blue-700;
-  }
-}
-
 .no-mobile {
   @apply z-[200];
   @apply flex;
@@ -42,10 +29,10 @@
   display: none;
 
   .indeterminate {
-    background-color: #b67e20;
+    background-color: #000;
   }
 
-  .indeterminate:before {
+  .indeterminate-dark:before,.indeterminate:before {
     content: "";
     position: absolute;
     background-color: inherit;
@@ -59,7 +46,7 @@
       infinite;
   }
 
-  .indeterminate:after {
+  .indeterminate-dark:after,.indeterminate:after {
     content: "";
     position: absolute;
     background-color: inherit;
@@ -76,9 +63,25 @@
   }
 }
 
+.dark {
+  .progress-indicator {
+    .dark\:indeterminate-dark {
+      background-color: #fff;
+    }
+  }
+}
+
+.form-indicator {
+  display: none;
+}
+
 .htmx-request {
   &.progress-indicator {
     display: inline;
+  }
+
+  &.form-indicator {
+    display: block;
   }
 }
 
@@ -140,6 +143,16 @@
     left: 107%;
     right: -8%;
   }
+}
+
+#main-toast.htmx-settling {
+  opacity: 100;
+}
+
+#main-toast {
+  // background: #E1F0DA;
+  opacity: 0;
+  transition: opacity 3s ease-out;
 }
 
 @import "_htmx";

@@ -2,14 +2,18 @@ package port
 
 import "github.com/labstack/echo/v4"
 
-type HomeService interface {
-	HomeIndex(c echo.Context) error
+type Controller interface {
+	Init(g *echo.Group)
 }
 
-type SettingService interface {
-	SettingsIndex(c echo.Context) error
+type HomeHandler interface {
+	HandleHomePage()
 }
 
-type AppUsecase interface {
-	CreateNewApp(c echo.Context) error
+type SettingHandler interface {
+	HandleSettingsPage()
+}
+
+type ProjectHandler interface {
+	HandleCreateNewProject()
 }

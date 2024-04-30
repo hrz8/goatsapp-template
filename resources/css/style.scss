@@ -18,6 +18,31 @@
   @apply dark:bg-zinc-900;
 }
 
+.has-error {
+  label {
+    @apply text-red-700;
+    @apply dark:text-red-500;
+  }
+
+  input, textarea {
+    @apply bg-red-50;
+    @apply border-red-500;
+    @apply text-red-900;
+    @apply placeholder-red-700;
+    @apply focus:ring-red-500;
+    @apply focus:border-red-500;
+    @apply dark:text-red-500;
+    @apply dark:placeholder-red-500;
+    @apply dark:border-red-500;
+    @apply dark:focus:ring-red-500;
+    @apply dark:focus:border-red-500
+  }
+
+  .error-msg {
+    @apply block;
+  }
+}
+
 .progress-indicator {
   position: fixed;
   z-index: 1000;
@@ -150,9 +175,13 @@
 }
 
 #main-toast {
-  // background: #E1F0DA;
   opacity: 0;
   transition: opacity 3s ease-out;
+}
+
+.asterisk:after {
+  content: " *";
+  color: red;
 }
 
 @import "_htmx";

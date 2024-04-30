@@ -17,7 +17,7 @@ templ AppNewPage() {
 						<li>
 							<div class="flex items-center">
 								<svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-								<a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Apps</a>
+								<a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Projects</a>
 							</div>
 						</li>
 						<li>
@@ -28,27 +28,30 @@ templ AppNewPage() {
 						</li>
 					</ol>
 				</nav>
-				<h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Create New Project</h1>
+				// <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Create New Project</h1>
 			</div>
-			<div class="col-span-1">
+			<div class="col-span-full w-full sm:w-96 mx-auto">
 				<div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-					<h3 class="mb-4 text-xl font-semibold dark:text-white">New Project</h3>
+					<h3 class="mb-4 text-xl font-semibold dark:text-white">Create New Project</h3>
 					<form id="project-new-form" hx-indicator=".form-indicator" hx-post="/projects/store" hx-swap="outerHTML settle:3s" hx-target="#main-toast" hx-select="#main-toast">
 						<div class="grid grid-cols-6 gap-6">
 							<div class="col-span-6 sm:col-span-6">
-								<label for="project-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-								<input type="text" name="project-name" id="project-name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Marketting Division" required/>
+								<label for="project-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white asterisk">Name</label>
+								<input type="text" name="name" id="project-name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Marketting Division" required/>
+								<p class="error-msg hidden mt-2 text-sm text-red-600 dark:text-red-500"></p>
 							</div>
 							<div class="col-span-6 sm:col-span-6">
-								<label for="project-alias" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alias</label>
-								<input type="text" name="project-alias" id="project-alias" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="project-minerva" required/>
+								<label for="project-alias" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white asterisk">Alias</label>
+								<input type="text" name="alias" id="project-alias" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="project-minerva" required/>
+								<p class="error-msg hidden mt-2 text-sm text-red-600 dark:text-red-500"></p>
 							</div>
 							<div class="col-span-6 sm:col-span-6">
 								<label for="project-description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-								<textarea rows="4" name="project-description" id="project-description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="📌 This project will be produce something cool..." required></textarea>
+								<textarea rows="4" name="description" id="project-description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="📌 This project will produce something cool..."></textarea>
+								<p class="error-msg hidden mt-2 text-sm text-red-600 dark:text-red-500"></p>
 							</div>
 							<div class="col-span-6 sm:col-span-6">
-								<label for="webhook-url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Webhook URL</label>
+								<label for="webhook-url" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white asterisk">Webhook URL</label>
 								<div class="relative">
 									<div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
 										<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -57,6 +60,7 @@ templ AppNewPage() {
 									</div>
 									<input type="text" name="webhook-url" id="webhook-url" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="https://your.example.com/hook" required/>
 								</div>
+								<p class="error-msg hidden mt-2 text-sm text-red-600 dark:text-red-500"></p>
 							</div>
 							<div class="col-span-6 sm:col-full">
 								<button type="submit" class="form-save px-5 py-2.5 text-white font-medium focus:ring-4 bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 rounded-lg text-sm text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Save</button>

@@ -7,7 +7,16 @@ package dbrepo
 
 import (
 	"context"
+
+	"github.com/hrz8/goatsapp/internal/repo/dto"
 )
+
+type CreateNewProjectsParams struct {
+	Name        string              `db:"name" json:"name"`
+	Alias       string              `db:"alias" json:"alias"`
+	Description *string             `db:"description" json:"description"`
+	Settings    dto.ProjectSettings `db:"settings" json:"settings"`
+}
 
 const getProjects = `-- name: GetProjects :many
 SELECT id, name, alias, description, settings, created_at, updated_at FROM projects WHERE 1 = 1

@@ -9,6 +9,7 @@ import (
 )
 
 type Querier interface {
+	CreateNewProjects(ctx context.Context, arg []*CreateNewProjectsParams) (int64, error)
 	GetProjects(ctx context.Context) ([]*Projects, error)
 }
 

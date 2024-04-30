@@ -1,7 +1,6 @@
 package appsvc
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/hrz8/goatsapp/internal/port"
@@ -29,7 +28,7 @@ func (c *ctl) Init(g *echo.Group) {
 }
 
 func (c *ctl) newProject(e echo.Context) error {
-	c.svc.HandleCreateNewProject()
+	time.Sleep(1 * time.Second)
 
 	// response as page
 	e.Response().Header().Set("HX-Push-Url", core.BaseURL("/projects/new"))
@@ -37,8 +36,7 @@ func (c *ctl) newProject(e echo.Context) error {
 }
 
 func (c *ctl) storeApp(e echo.Context) error {
-	fmt.Println("lol")
-	time.Sleep(1 * time.Second)
+	c.svc.HandleCreateNewProject(e)
 
 	// response
 	return core.RenderView(e.Request().Context(), e.Response().Writer, component.Toast(component.ToastProps{

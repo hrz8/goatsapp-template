@@ -1,7 +1,7 @@
 import 'flowbite';
 import './dark-mode';
 import './sidebar';
-import './page/projects/new';
+import './pages/projects/new';
 
 if (
   localStorage.getItem('color-theme') === 'dark'

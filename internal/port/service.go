@@ -15,5 +15,5 @@ type SettingHandler interface {
 }
 
 type ProjectHandler interface {
-	HandleCreateNewProject()
+	HandleCreateNewProject(c echo.Context)
 }

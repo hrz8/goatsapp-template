@@ -28,7 +28,7 @@ func (u *usecase) HandleCreateNewProject(c echo.Context) {
 	name := c.FormValue("name")
 	alias := c.FormValue("alias")
 	description := c.FormValue("description")
-	webhookURL := c.FormValue("webhookURL")
+	webhookURL := c.FormValue("webhook-url")
 
 	projects := []*dbrepo.CreateNewProjectsParams{
 		{

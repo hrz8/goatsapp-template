@@ -19,7 +19,7 @@ type CreateNewProjectsParams struct {
 }
 
 const getProjects = `-- name: GetProjects :many
-SELECT id, name, alias, description, settings, created_at, updated_at FROM projects WHERE 1 = 1
+SELECT id, name, alias, description, settings, created_at, updated_at FROM projects WHERE 1 = 1 ORDER BY created_at ASC
 `
 
 func (q *Queries) GetProjects(ctx context.Context) ([]*Projects, error) {

@@ -2,6 +2,7 @@
   "name": "goatsapp",
   "module": "esbuild.ts",
   "type": "module",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hrz8/goatstrap.git"
@@ -9,6 +10,7 @@
   "scripts": {
     "db:migration": "drizzle-kit generate:pg --config drizzle.config.ts",
     "db:migrate": "bun migrate.ts",
+    "db:seed": "bun seed.ts",
     "build:esbuild": "bun ./esbuild.ts",
     "build:tailwind": "tailwindcss -i ./assets/public/css/_app.bundle.css -o ./assets/public/css/app.bundle.css --minify"
   },

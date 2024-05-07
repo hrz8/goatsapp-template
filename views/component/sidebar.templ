@@ -1,6 +1,18 @@
 package component
 
-import "github.com/hrz8/goatsapp/pkg/core"
+import (
+	"github.com/hrz8/goatsapp/pkg/core"
+	"github.com/hrz8/goatsapp/internal/repo/db"
+)
+
+func GetProjects(ctx context.Context) []*dbrepo.Projects {
+	allProjects := ctx.Value("projects")
+	if allProjects != nil {
+		return allProjects.([]*dbrepo.Projects)
+	}
+
+	return make([]*dbrepo.Projects, 0)
+}
 
 templ Sidebar() {
 	<aside
@@ -102,18 +114,26 @@ templ Sidebar() {
 								</svg>
 							</button>
 							<ul id="dropdown-layouts" class="hidden py-2 space-y-2">
-								<li>
-									<a
-										href={ templ.SafeURL(core.BaseURL("/projects/db1c883c-d14d-4fcb-b5e1-2254c3b8d95e")) }
-										class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-									>Rexus Ultra</a>
-								</li>
-								<li>
-									<a
-										href={ templ.SafeURL(core.BaseURL("/projects/3b85792d-1c0b-4f14-93ef-58e0dae882c2")) }
-										class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-									>Tribal Cluster</a>
-								</li>
+								for _, proj := range GetProjects(ctx) {
+									<li>
+										<a
+											href={ templ.SafeURL(core.BaseURL("/projects/" + proj.ID.String())) }
+											class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+										>{ proj.Name }</a>
+									</li>
+								}
+								// <li>
+								// 	<a
+								// 		href={ templ.SafeURL(core.BaseURL("/projects/db1c883c-d14d-4fcb-b5e1-2254c3b8d95e")) }
+								// 		class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+								// 	>Rexus Ultra</a>
+								// </li>
+								// <li>
+								// 	<a
+								// 		href={ templ.SafeURL(core.BaseURL("/projects/3b85792d-1c0b-4f14-93ef-58e0dae882c2")) }
+								// 		class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
+								// 	>Tribal Cluster</a>
+								// </li>
 							</ul>
 						</li>
 						<li>

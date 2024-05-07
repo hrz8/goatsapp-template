@@ -7,12 +7,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type ctl struct {
-	cfg port.AppConfigor
-	svc port.SettingHandler
+type settingUsecaser interface {
+	HandleSettingsPage()
 }
 
-func NewController(cfg port.AppConfigor, svc port.SettingHandler) *ctl {
+type ctl struct {
+	cfg port.AppConfigor
+	svc settingUsecaser
+}
+
+func NewController(cfg port.AppConfigor, svc settingUsecaser) *ctl {
 	return &ctl{cfg, svc}
 }
 

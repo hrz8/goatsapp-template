@@ -7,13 +7,11 @@ import (
 
 	"github.com/hrz8/goatsapp/assets"
 	"github.com/hrz8/goatsapp/internal/config"
-	"github.com/hrz8/goatsapp/internal/port"
 	dbrepo "github.com/hrz8/goatsapp/internal/repo/db"
 	HomeSvc "github.com/hrz8/goatsapp/internal/service/home"
 	ProjectSvc "github.com/hrz8/goatsapp/internal/service/projects"
 	SettingSvc "github.com/hrz8/goatsapp/internal/service/settings"
-	"github.com/hrz8/goatsapp/views/error_page"
-	"github.com/jackc/pgx/v5"
+	CustomMiddleware "github.com/hrz8/goatsapp/pkg/middleware"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -29,31 +27,31 @@ func main() {
 		os.Exit(0)
 	}()
 
-	e := echo.New()
-	e.Pre(middleware.RemoveTrailingSlash())
-	e.RouteNotFound("*", func(c echo.Context) error {
-		return error_page.NotFoundPage().Render(
-			c.Request().Context(),
-			c.Response().Writer,
-		)
-	})
-
-	base := e.Group(cfg.GetBasePath())
-	base.GET("/assets/*", assets.StaticHandler("public"))
-
-	bootstrap(cfg, base, db)
-
-	e.Logger.Fatal(e.Start(":" + cfg.GetAppPort()))
-}
-
-func bootstrap(cfg port.AppConfigor, e *echo.Group, db *pgx.Conn) {
+	// load services
 	repo := dbrepo.New(db)
-
 	homeUc := HomeSvc.NewUsecase(cfg)
 	settingUc := SettingSvc.NewUsecase(cfg)
 	projectUc := ProjectSvc.NewUsecase(cfg, repo)
 
-	HomeSvc.NewController(cfg, homeUc).Init(e)
-	SettingSvc.NewController(cfg, settingUc).Init(e)
-	ProjectSvc.NewController(cfg, projectUc).Init(e)
+	// load default http
+	e := echo.New()
+	e.Pre(middleware.RemoveTrailingSlash())
+	e.Use(middleware.RequestID())
+	e.RouteNotFound("*", CustomMiddleware.NotFound)
+
+	// grouping base path
+	base := e.Group(cfg.GetBasePath())
+
+	// load middlewares
+	base.Use(CustomMiddleware.EchoContext)
+	base.Use(CustomMiddleware.PopulateActiveProjects(cfg, projectUc))
+
+	// load web app
+	base.GET("/assets/*", assets.StaticHandler("public"))
+	HomeSvc.NewController(cfg, homeUc).Init(base)
+	SettingSvc.NewController(cfg, settingUc).Init(base)
+	ProjectSvc.NewController(cfg, projectUc).Init(base)
+
+	// start http
+	e.Logger.Fatal(e.Start(":" + cfg.GetAppPort()))
 }

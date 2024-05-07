@@ -10,12 +10,16 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type ctl struct {
-	cfg port.AppConfigor
-	svc port.ProjectHandler
+type projectUsecaser interface {
+	HandleCreateNewProject(e echo.Context)
 }
 
-func NewController(cfg port.AppConfigor, svc port.ProjectHandler) *ctl {
+type ctl struct {
+	cfg port.AppConfigor
+	svc projectUsecaser
+}
+
+func NewController(cfg port.AppConfigor, svc projectUsecaser) *ctl {
 	return &ctl{cfg, svc}
 }
 
@@ -40,7 +44,7 @@ func (c *ctl) storeApp(e echo.Context) error {
 
 	// response
 	return core.RenderView(e.Request().Context(), e.Response().Writer, component.Toast(component.ToastProps{
-		Message: "successfully",
+		Message: "Project created successfully, refresh the page to see the effects.",
 		Hidden:  false,
 	}))
 }

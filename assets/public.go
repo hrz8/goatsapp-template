@@ -13,7 +13,7 @@ import (
 //go:embed "public/*"
 var publicFiles embed.FS
 
-func servePublic(c echo.Context, file string) error {
+func servePublic(e echo.Context, file string) error {
 	f, err := publicFiles.Open(file)
 	if err != nil {
 		return echo.ErrNotFound
@@ -39,6 +39,6 @@ func servePublic(c echo.Context, file string) error {
 		return errors.New("file does not implement io.ReadSeeker")
 	}
 
-	http.ServeContent(c.Response(), c.Request(), fi.Name(), fi.ModTime(), ff)
+	http.ServeContent(e.Response(), e.Request(), fi.Name(), fi.ModTime(), ff)
 	return nil
 }

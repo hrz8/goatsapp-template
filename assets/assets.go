@@ -29,7 +29,7 @@ func checkFolder(folder string) error {
 }
 
 func StaticHandler(folder string) echo.HandlerFunc {
-	return func(c echo.Context) error {
+	return func(e echo.Context) error {
 		var err error
 
 		err = checkFolder(folder)
@@ -37,7 +37,7 @@ func StaticHandler(folder string) echo.HandlerFunc {
 			return err
 		}
 
-		path := c.Param("*")
+		path := e.Param("*")
 		path, err = url.PathUnescape(path)
 		if err != nil {
 			return fmt.Errorf("failed to unescape path variable: %w", err)
@@ -45,11 +45,11 @@ func StaticHandler(folder string) echo.HandlerFunc {
 
 		if folder == "public" {
 			name := "public/" + filepath.ToSlash(filepath.Clean(strings.TrimPrefix(path, "/")))
-			err = servePublic(c, name)
+			err = servePublic(e, name)
 		}
 
 		if err != nil && errors.Is(err, echo.ErrNotFound) {
-			return error_page.NotFoundPage().Render(c.Request().Context(), c.Response().Writer)
+			return error_page.NotFoundPage().Render(e.Request().Context(), e.Response().Writer)
 		}
 
 		return err

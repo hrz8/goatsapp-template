@@ -24,11 +24,11 @@ func NewUsecase(cfg port.AppConfigor, repo repositor) *usecase {
 	return &usecase{cfg, repo}
 }
 
-func (u *usecase) HandleCreateNewProject(c echo.Context) {
-	name := c.FormValue("name")
-	alias := c.FormValue("alias")
-	description := c.FormValue("description")
-	webhookURL := c.FormValue("webhook-url")
+func (u *usecase) HandleCreateNewProject(e echo.Context) {
+	name := e.FormValue("name")
+	alias := e.FormValue("alias")
+	description := e.FormValue("description")
+	webhookURL := e.FormValue("webhook-url")
 
 	projects := []*dbrepo.CreateNewProjectsParams{
 		{
@@ -40,7 +40,11 @@ func (u *usecase) HandleCreateNewProject(c echo.Context) {
 			},
 		},
 	}
-	u.repo.CreateNewProjects(c.Request().Context(), projects)
+	u.repo.CreateNewProjects(e.Request().Context(), projects)
 	time.Sleep(1 * time.Second)
 	// some logic...
+}
+
+func (u *usecase) GetAllProjects(ctx context.Context) ([]*dbrepo.Projects, error) {
+	return u.repo.GetProjects(ctx)
 }

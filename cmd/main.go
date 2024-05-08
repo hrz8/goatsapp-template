@@ -11,9 +11,9 @@ import (
 	HomeSvc "github.com/hrz8/goatsapp/internal/service/home"
 	ProjectSvc "github.com/hrz8/goatsapp/internal/service/projects"
 	SettingSvc "github.com/hrz8/goatsapp/internal/service/settings"
-	CustomMiddleware "github.com/hrz8/goatsapp/pkg/middleware"
+	"github.com/hrz8/goatsapp/pkg/middleware"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	echomw "github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -30,21 +30,21 @@ func main() {
 	// load services
 	repo := dbrepo.New(db)
 	homeUc := HomeSvc.NewUsecase(cfg)
-	settingUc := SettingSvc.NewUsecase(cfg)
+	settingUc := SettingSvc.NewUsecase(cfg, repo)
 	projectUc := ProjectSvc.NewUsecase(cfg, repo)
 
 	// load default http
 	e := echo.New()
-	e.Pre(middleware.RemoveTrailingSlash())
-	e.Use(middleware.RequestID())
-	e.RouteNotFound("*", CustomMiddleware.NotFound)
+	e.Pre(echomw.RemoveTrailingSlash())
+	e.Use(echomw.RequestID())
+	e.RouteNotFound("*", middleware.NotFound)
 
 	// grouping base path
 	base := e.Group(cfg.GetBasePath())
 
 	// load middlewares
-	base.Use(CustomMiddleware.EchoContext)
-	base.Use(CustomMiddleware.PopulateActiveProjects(cfg, projectUc))
+	base.Use(middleware.EchoContext)
+	base.Use(middleware.PopulateActiveProjects(cfg, projectUc))
 
 	// load web app
 	base.GET("/assets/*", assets.StaticHandler("public"))

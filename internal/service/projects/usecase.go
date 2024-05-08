@@ -2,16 +2,21 @@ package appsvc
 
 import (
 	"context"
-	"time"
 
 	"github.com/hrz8/goatsapp/internal/port"
 	dbrepo "github.com/hrz8/goatsapp/internal/repo/db"
 	"github.com/hrz8/goatsapp/internal/repo/dto"
-	"github.com/labstack/echo/v4"
 )
 
+type CreateProjectParams struct {
+	Name        string
+	Alias       string
+	Description string
+	WebhookURL  string
+}
+
 type repositor interface {
-	GetProjects(ctx context.Context) ([]*dbrepo.Projects, error)
+	GetProjects(ctx context.Context) ([]*dbrepo.GetProjectsRow, error)
 	CreateNewProjects(ctx context.Context, arg []*dbrepo.CreateNewProjectsParams) (int64, error)
 }
 
@@ -24,27 +29,20 @@ func NewUsecase(cfg port.AppConfigor, repo repositor) *usecase {
 	return &usecase{cfg, repo}
 }
 
-func (u *usecase) HandleCreateNewProject(e echo.Context) {
-	name := e.FormValue("name")
-	alias := e.FormValue("alias")
-	description := e.FormValue("description")
-	webhookURL := e.FormValue("webhook-url")
-
+func (u *usecase) HandleCreateNewProject(ctx context.Context, params CreateProjectParams) {
 	projects := []*dbrepo.CreateNewProjectsParams{
 		{
-			Name:        name,
-			Alias:       alias,
-			Description: &description,
+			Name:        params.Name,
+			Alias:       params.Alias,
+			Description: &params.Description,
 			Settings: dto.ProjectSettings{
-				WebhookURL: webhookURL,
+				WebhookURL: params.WebhookURL,
 			},
 		},
 	}
-	u.repo.CreateNewProjects(e.Request().Context(), projects)
-	time.Sleep(1 * time.Second)
-	// some logic...
+	u.repo.CreateNewProjects(ctx, projects)
 }
 
-func (u *usecase) GetAllProjects(ctx context.Context) ([]*dbrepo.Projects, error) {
+func (u *usecase) GetProjects(ctx context.Context) ([]*dbrepo.GetProjectsRow, error) {
 	return u.repo.GetProjects(ctx)
 }

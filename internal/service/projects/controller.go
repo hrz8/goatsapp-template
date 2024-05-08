@@ -1,6 +1,7 @@
 package appsvc
 
 import (
+	"context"
 	"time"
 
 	"github.com/hrz8/goatsapp/internal/port"
@@ -11,7 +12,7 @@ import (
 )
 
 type projectUsecaser interface {
-	HandleCreateNewProject(e echo.Context)
+	HandleCreateNewProject(ctx context.Context, params CreateProjectParams)
 }
 
 type ctl struct {
@@ -40,10 +41,17 @@ func (c *ctl) newProject(e echo.Context) error {
 }
 
 func (c *ctl) storeApp(e echo.Context) error {
-	c.svc.HandleCreateNewProject(e)
+	ctx := e.Request().Context()
+	params := CreateProjectParams{
+		Name:        e.FormValue("name"),
+		Alias:       e.FormValue("alias"),
+		Description: e.FormValue("description"),
+		WebhookURL:  e.FormValue("webhook-url"),
+	}
+	c.svc.HandleCreateNewProject(ctx, params)
 
 	// response
-	return core.RenderView(e.Request().Context(), e.Response().Writer, component.Toast(component.ToastProps{
+	return core.RenderView(ctx, e.Response().Writer, component.Toast(component.ToastProps{
 		Message: "Project created successfully, refresh the page to see the effects.",
 		Hidden:  false,
 	}))

@@ -6,7 +6,7 @@ import type { InputState } from '../../modules/form';
 const projectName: InputState = {
   el: document.getElementById('project-name'),
   state: new Signal.State(""),
-  regExp: /[\w\s\p{Emoji}]{5,50}/u,
+  regExp: /[\w\s\u1F600-\u1F64F\u1F300-\u1F5FF\u1F680-\u1F6FF]{5,50}/,
   err: "Invalid value (range: 5-50 chars)",
 };
 

@@ -2,16 +2,16 @@ package component
 
 import (
 	"github.com/hrz8/goatsapp/pkg/core"
-	"github.com/hrz8/goatsapp/internal/repo/db"
+	dbrepo "github.com/hrz8/goatsapp/internal/repo/db"
 )
 
-func GetProjects(ctx context.Context) []*dbrepo.Projects {
+func GetProjects(ctx context.Context) []*dbrepo.GetProjectsRow {
 	allProjects := ctx.Value("projects")
 	if allProjects != nil {
-		return allProjects.([]*dbrepo.Projects)
+		return allProjects.([]*dbrepo.GetProjectsRow)
 	}
 
-	return make([]*dbrepo.Projects, 0)
+	return make([]*dbrepo.GetProjectsRow, 0)
 }
 
 templ Sidebar() {

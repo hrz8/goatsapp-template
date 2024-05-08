@@ -11,7 +11,7 @@ import (
 )
 
 type projectUsecaser interface {
-	GetAllProjects(ctx context.Context) ([]*dbrepo.Projects, error)
+	GetProjects(ctx context.Context) ([]*dbrepo.GetProjectsRow, error)
 }
 
 func EchoContext(next echo.HandlerFunc) echo.HandlerFunc {
@@ -31,9 +31,9 @@ func PopulateActiveProjects(cfg port.AppConfigor, svc projectUsecaser) echo.Midd
 			}
 
 			if !strings.HasPrefix(path, basePath+"/assets") {
-				projects, err := svc.GetAllProjects(e.Request().Context())
+				projects, err := svc.GetProjects(e.Request().Context())
 				if err != nil {
-					projects = make([]*dbrepo.Projects, 0)
+					projects = make([]*dbrepo.GetProjectsRow, 0)
 				}
 				e.Set("projects", projects)
 			}

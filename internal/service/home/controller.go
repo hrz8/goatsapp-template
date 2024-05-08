@@ -28,9 +28,10 @@ func (c *ctl) Init(g *echo.Group) {
 }
 
 func (c *ctl) index(e echo.Context) error {
+	ctx := e.Request().Context()
 	c.svc.HandleHomePage()
 
 	// response as page
 	e.Response().Header().Set("HX-Push-Url", core.BaseURL("/"))
-	return core.RenderView(e.Request().Context(), e.Response().Writer, page.HomePage())
+	return core.RenderView(ctx, e.Response().Writer, page.HomePage())
 }

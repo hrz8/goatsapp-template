@@ -1,5 +1,14 @@
 -- name: GetProjects :many
-SELECT * FROM projects WHERE 1 = 1 ORDER BY created_at ASC;
+SELECT
+    id,
+    name,
+    alias,
+    description,
+    settings
+FROM projects
+WHERE
+    1 = 1
+ORDER BY created_at ASC;
 
 -- name: CreateNewProjects :copyfrom
 INSERT INTO

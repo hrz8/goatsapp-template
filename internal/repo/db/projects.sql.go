@@ -8,6 +8,7 @@ package dbrepo
 import (
 	"context"
 
+	"github.com/google/uuid"
 	"github.com/hrz8/goatsapp/internal/repo/dto"
 )
 
@@ -19,26 +20,41 @@ type CreateNewProjectsParams struct {
 }
 
 const getProjects = `-- name: GetProjects :many
-SELECT id, name, alias, description, settings, created_at, updated_at FROM projects WHERE 1 = 1 ORDER BY created_at ASC
+SELECT
+    id,
+    name,
+    alias,
+    description,
+    settings
+FROM projects
+WHERE
+    1 = 1
+ORDER BY created_at ASC
 `
 
-func (q *Queries) GetProjects(ctx context.Context) ([]*Projects, error) {
+type GetProjectsRow struct {
+	ID          uuid.UUID           `db:"id" json:"id"`
+	Name        string              `db:"name" json:"name"`
+	Alias       string              `db:"alias" json:"alias"`
+	Description *string             `db:"description" json:"description"`
+	Settings    dto.ProjectSettings `db:"settings" json:"settings"`
+}
+
+func (q *Queries) GetProjects(ctx context.Context) ([]*GetProjectsRow, error) {
 	rows, err := q.db.Query(ctx, getProjects)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []*Projects
+	var items []*GetProjectsRow
 	for rows.Next() {
-		var i Projects
+		var i GetProjectsRow
 		if err := rows.Scan(
 			&i.ID,
 			&i.Name,
 			&i.Alias,
 			&i.Description,
 			&i.Settings,
-			&i.CreatedAt,
-			&i.UpdatedAt,
 		); err != nil {
 			return nil, err
 		}
